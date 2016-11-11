@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Printum</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_user_detail">UserDetail</string>
+    <string name="user_description"> Un nombre que es sinónimo de innovación, calidad y servicio en la industria gráfica. Durante más de 10 años, pRiNtUm ha sido el líder en productos de impresión con curado ULTRAVIOLETA y en la resolución de problemas de impresión para lograr sus metas; le damos las soluciones que necesita para construir y centrarse en su negocio.</string>
+    <string name="user_info">My self-summary</string>
+    <string name="printum">Printum</string>
+    <string name="tab_recyclerview">Tab RecyclerView</string>
+    <string name="printum_username_com">Printum@username.com</string>
+    <string name="description">Printum</string>
+    <string name="activity">Productos</string>
+    <string name="communicate">Descuentos</string>
+    <string name="likes">Certificados</string>
+    <string name="matches">Hojas de seguridad</string>
+    <string name="messages">EquipoPrintum</string>
+    <string name="quickmatch">Conocenos</string>
+    <string name="visitors">Clientes</string>
+</resources>

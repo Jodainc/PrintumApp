@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_recyclerview">Tab RecyclerView</string>
+    <string name="printum">Printum</string>
+    <string name="printum_username_com">Printum@username.com</string>
+</resources>

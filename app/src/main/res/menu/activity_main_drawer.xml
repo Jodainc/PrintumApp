@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/activity" />
+        <item
+            android:id="@+id/nav_matches"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/matches" />
+        <item
+            android:id="@+id/nav_quick_match"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/quickmatch" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/messages" />
+    </group>
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_visitors"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/visitors" />
+            <item
+                android:id="@+id/nav_likes"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/likes" />
+        </menu>
+    </item>
+
+</menu>
