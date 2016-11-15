@@ -85,26 +85,19 @@ public class NearbyFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-
                 String photo = jsonObject.getString("photo");
                 Log.i(LOG_TAG, "photo" + photo);
-
                 JSONObject photoJsonObject = new JSONObject(photo);
                 Log.i(LOG_TAG, "photoJsonObject" + photoJsonObject);
-
                 String full_path = photoJsonObject.getString("full_paths");
                 Log.i(LOG_TAG, "full_path" + full_path);
-
                 JSONObject fullPathJsonObject = new JSONObject(full_path);
                 Log.i(LOG_TAG, "photoJsonObject" + photoJsonObject);
-
                 String photo_large = fullPathJsonObject.getString("large");
                 String photo_medium = fullPathJsonObject.getString("medium");
-
                 String user_name = jsonObject.getString("username");
                 String match = jsonObject.getString("match");
                 int age = Integer.parseInt(jsonObject.getString("age"));
-
                 String location = jsonObject.getString("location");
                 JSONObject locationJsonObject = new JSONObject(location);
                 String mCountryCode = locationJsonObject.getString("country_code");
@@ -112,7 +105,6 @@ public class NearbyFragment extends Fragment {
                 String mCityName = locationJsonObject.getString("city_name");
                 String mStateName = locationJsonObject.getString("state_name");
                 String mStateCode = locationJsonObject.getString("state_code");
-
                 LocationModel locationModel = new LocationModel(mCountryCode, mCountryName, mCityName, mStateName, mStateCode);
                 DataModel dataModel = new DataModel(photo_medium,
                         photo_large,

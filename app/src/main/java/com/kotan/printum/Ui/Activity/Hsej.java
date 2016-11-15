@@ -50,7 +50,6 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
         });
 
     }
-
     protected void ViewPDF(){
         try {
             if(!(isOnlineNet())){
@@ -85,7 +84,6 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
     }
     @Override
     public void onLayerDrawn(Canvas canvas, float pageWidth, float pageHeight, int displayedPage) {
-
     }
     public Boolean isOnlineNet() {
         try {

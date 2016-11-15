@@ -45,14 +45,11 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         JsonParser();
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
-
         // Setting the Grid Layout
         mSearchRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
         // Setting the Adapter
         mSearchAdapter = new SearchAdapter(getActivity(), dataModelArrayList);
         mSearchRecyclerView.setAdapter(mSearchAdapter);
@@ -61,7 +58,7 @@ public class SearchFragment extends Fragment {
 
     public void JsonParser() {
         //http://jhosuegalindo.uphero.com/PrintumDes.json
-        final String url = "https://www.okcupid.com/matchSample.json";
+        final String url = "http://jhosuegalindo.uphero.com/Printum.json";
         RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
