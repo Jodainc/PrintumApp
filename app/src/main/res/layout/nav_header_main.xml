@@ -13,7 +13,7 @@
     android:contentDescription="@string/description">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/UserPho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -25,10 +25,11 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/printum"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:id="@+id/TittleCompa" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/TittleEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/printum_username_com" />
