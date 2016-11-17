@@ -79,15 +79,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context,
-                                holder.mImageView, // Starting view
-                                "profileImage"); // The Shared Transition
+                                holder.mImageView,
+                                "profileImage");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     context.startActivity(intent, options.toBundle());
                 } else {
                     context.startActivity(intent);
                 }
-                // Get and Post the event
                 EventBus.getDefault().postSticky(new OnItemClickEvent(bundle));
             }
         });

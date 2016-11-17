@@ -1,5 +1,8 @@
 package com.kotan.printum.Ui.Activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +29,7 @@ import com.kotan.printum.Ui.Adapter.TabViewAdapter;
 import com.kotan.printum.Ui.Fragments.BookMarkFragment;
 import com.kotan.printum.Ui.Fragments.NearbyFragment;
 import com.kotan.printum.Ui.Fragments.SearchFragment;
+import java.io.InputStream;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.RetrofitError;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mBookMarkFragment = new BookMarkFragment();
     private RestService restService;
     private String userName = " ";
+    private String urlImage = " ";
     private int compaId = 0;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        restService = new RestService();
         // Bind all of the view
         ButterKnife.bind(this);
 
@@ -72,32 +78,35 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-        restService.getService().getUser(1, new Callback<Users>() {
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        final View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        final TextView tv = (TextView)hView.findViewById(R.id.TittleCompa);
+        final TextView tv1 = (TextView)hView.findViewById(R.id.TittleEmail);
+        //final ImageView tv2 = (ImageView) hView.findViewById(R.id.UserPho);
+
+        restService.getService().getUser(1, new Callback<Users>() {
             @Override
             public void success(Users users, Response response) {
-
+                userName = users.UserName;compaId = users.CompanyId;urlImage = users.UserPhoto;
+                urlImage = urlImage.substring(1);
+                urlImage = "http://192.168.0.98:8080"+urlImage;
+                Log.d("Apii",urlImage);
+                new DownloadImageTask((ImageView) hView.findViewById(R.id.UserPho))
+                        .execute(urlImage);
+                //tv2.setImageResource();
+                tv.setText(""+userName);
+                tv1.setText("Printum");
             }
             @Override
             public void failure(RetrofitError error) {
                 //Toast.makeText(null, error.getMessage().toString(), Toast.LENGTH_LONG).show();
             }});
-        // Set Toggle ActionBar
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-        // Setup Navigation Drawer
-        navigationView.setNavigationItemSelectedListener(this);
-        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
-        TextView tv = (TextView)hView.findViewById(R.id.TittleCompa);
-        TextView tv1 = (TextView)hView.findViewById(R.id.TittleEmail);
-        tv.setText("hol");
-        tv1.setText("da");
-        // Setup ViewPager
-        setupViewPager();
 
-        // Initialize Tabs
+        setupViewPager();
         mTabLayout.setupWithViewPager(mViewPager);
     }
     private void setupViewPager() {
@@ -163,5 +172,33 @@ public class MainActivity extends AppCompatActivity
     }
     public void callToSnackBar(String message) {
         Toast.makeText(this, message + " clicked!", Toast.LENGTH_SHORT).show();
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            bmImage.setMinimumWidth(50);
+            bmImage.setMinimumHeight(50);
+            bmImage.setImageBitmap(result);
+
+        }
     }
 }

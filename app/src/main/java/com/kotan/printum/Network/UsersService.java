@@ -1,5 +1,7 @@
 package com.kotan.printum.Network;
 
+import android.util.Log;
+
 import com.kotan.printum.Model.Users;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public interface UsersService  {
 
     @GET("/Users")
     public void getUsers(Callback<List<Users>> callback);
+
 
     @GET("/Users/{id}")
     public void getUser(@Path("id")Integer id, Callback<Users> callback);

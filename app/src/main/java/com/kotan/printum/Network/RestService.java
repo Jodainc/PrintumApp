@@ -7,7 +7,7 @@ import com.kotan.printum.Model.Users;
  */
 
 public class RestService {
-    private static final String URL = "http://192.168.0.98:8080/Api/";
+    private static final String URL = "http://192.168.0.98:8080/Api";
 
     private retrofit.RestAdapter restAdapter;
     private UsersService apiService;
@@ -18,8 +18,8 @@ public class RestService {
                 .setEndpoint(URL)
                 .setLogLevel(retrofit.RestAdapter.LogLevel.FULL)
                 .build();
-
         apiService = restAdapter.create(UsersService.class);
+        System.out.println("Apii"+apiService);
     }
 
     public UsersService getService()
