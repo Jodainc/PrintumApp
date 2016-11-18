@@ -36,15 +36,10 @@ public class UserDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_user_detail);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.content_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Register to the bus
         EventBus.getDefault().registerSticky(this);
-
-        // LoadBackdrop to the detail card View
         loadBackdrop();
 
         try  {
@@ -54,10 +49,6 @@ public class UserDetail extends AppCompatActivity {
         }catch (Exception E){
             Log.d(LOG_TAG, "Error Message 2" + E.toString());
         }
-        // Setting the Collapsing ToolBar
-
-
-        // Floating Button with SnackBar
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.detail_fab_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +58,6 @@ public class UserDetail extends AppCompatActivity {
             }
         });
     }
-
-    // onEvent Receive the Event
     public void onEventMainThread(OnItemClickEvent event) {
         dataModel = (DataModel) event.bundle.get("cupid_detail");
     }

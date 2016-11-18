@@ -24,20 +24,18 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-
 /**
  * Created by COEQ-IT on 15/11/2016.
  */
-
 public class HseJAdapter extends RecyclerView.Adapter<HseJAdapter.ViewHolderData> {
     public LayoutInflater layoutInflater;
     public Context mContext;
-    public ArrayList<DataModel> mCupidData;
+    public ArrayList<DataModel> PrintumData;
 
-    public HseJAdapter(Context mContext, ArrayList<DataModel> mCupidData) {
+    public HseJAdapter(Context mContext, ArrayList<DataModel> printumData) {
         layoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
-        this.mCupidData = mCupidData;
+        this.PrintumData = printumData;
     }
 
     @Override
@@ -50,22 +48,20 @@ public class HseJAdapter extends RecyclerView.Adapter<HseJAdapter.ViewHolderData
     @Override
     public void onBindViewHolder(final ViewHolderData holder, final int position) {
         Glide.with(mContext)
-                .load(mCupidData.get(position).getPhoto_medium())
+                .load(PrintumData.get(position).getPhoto_medium())
                 .override(120, 120)
                 .centerCrop()
                 .crossFade(30)
                 .placeholder(R.drawable.test_profile)
                 .error(R.drawable.test_profile)
                 .into(holder.mImageView);
-
-        holder.mUserName.setText(mCupidData.get(position).getUser_name());
-
-        String age = String.valueOf(mCupidData.get(position).getAge());
-        String city = mCupidData.get(position).getLocation().getmCityName();
-        String stateCode = mCupidData.get(position).getLocation().getmStateCode();
+        holder.mUserName.setText(PrintumData.get(position).getUser_name());
+        String age = String.valueOf(PrintumData.get(position).getAge());
+        String city = PrintumData.get(position).getLocation().getmCityName();
+        String stateCode = PrintumData.get(position).getLocation().getmStateCode();
         holder.mLocation.setText(age + "-" + city + "," + stateCode);
 
-        String match = Integer.parseInt(mCupidData.get(position).getMatch()) / 100 + "%";
+        String match = Integer.parseInt(PrintumData.get(position).getMatch()) / 100 + "%";
         holder.mMatch.setText(match);
 
         holder.mMatchText.setText("Match");
@@ -77,21 +73,20 @@ public class HseJAdapter extends RecyclerView.Adapter<HseJAdapter.ViewHolderData
                 Context context = view.getContext();
                 Intent intent = new Intent(context, UserDetail.class);
 
-                DataModel mDataModel = mCupidData.get(position);
+                DataModel mDataModel = PrintumData.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("Printum_detail_detail", mDataModel);
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context,
-                                holder.mImageView, // Starting view
-                                "profileImage"); // The Shared Transition
+                                holder.mImageView,
+                                "profileImage");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     context.startActivity(intent, options.toBundle());
                 } else {
                     context.startActivity(intent);
                 }
-                // Get and Post the event
                 EventBus.getDefault().postSticky(new OnItemClickEvent(bundle));
             }
         });
@@ -99,7 +94,7 @@ public class HseJAdapter extends RecyclerView.Adapter<HseJAdapter.ViewHolderData
 
     @Override
     public int getItemCount() {
-        return mCupidData.size();
+        return PrintumData.size();
     }
 
     public class ViewHolderData extends RecyclerView.ViewHolder {

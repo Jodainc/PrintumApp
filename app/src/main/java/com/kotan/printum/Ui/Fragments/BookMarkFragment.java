@@ -39,10 +39,6 @@ import java.util.concurrent.ExecutionException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BookMarkFragment extends Fragment implements OnPageChangeListener,OnDrawListener,View.OnClickListener {
 
     private String LOG_TAG = SearchFragment.class.getSimpleName();
@@ -58,7 +54,6 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
     RecyclerView mSearchRecyclerView;
 
     public BookMarkFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -76,8 +71,6 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
                 String a =  editText.getText().toString();
                 if(a!= null && !(a.equals("Producto"))){
                     download_file_url = download_file_url+a;
-                    //editText.setText(""+download_file_url);
-                    //ViewPDF();
 
                 }else{
                     editText.setText("No product");

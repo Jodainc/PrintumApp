@@ -1,5 +1,4 @@
 package com.kotan.printum.Ui.Activity;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -35,7 +34,6 @@ import butterknife.ButterKnife;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.Callback;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String LOG_TAG = MainActivity.class.getSimpleName();
@@ -58,19 +56,13 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     @Bind(R.id.tabs)
     TabLayout mTabLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         restService = new RestService();
-        // Bind all of the view
         ButterKnife.bind(this);
-
-        // Set Toolbar
         setSupportActionBar(mToolbar);
-
-        // Set Snack bar Listener
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +70,6 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
@@ -86,9 +77,13 @@ public class MainActivity extends AppCompatActivity
         final View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
         final TextView tv = (TextView)hView.findViewById(R.id.TittleCompa);
         final TextView tv1 = (TextView)hView.findViewById(R.id.TittleEmail);
-        //final ImageView tv2 = (ImageView) hView.findViewById(R.id.UserPho);
-
-        restService.getService().getUser(1, new Callback<Users>() {
+        String tocken1 = "Bearer";
+        String tocken2 ="tJB7MdVToVLYwKjrPheC4sdxI-qzqNsLXKq3TuPX04yXXmangUqMbFres6rDYtlliFwrbNCo1mzBz2X3DBUa9IdoQvPrwnem5SFfMFVXLQYk9F2jkAm-RdtFHFQCwgNcWigaOZ-cqe1g_n29B0BV5caQrO2GDn_fhkPr-sWhx40ixaqCscA-5xmLn9IQDHBJ4NFeVy6vtS-WFS8eV1yVAwCmRCaPsfR3sFq7XWF2FQvzJ5AOJaYHjm-JuxCvihSOmB_0-SzbbMZqMeTrL6AEv3EySpAEwZk3zh1pD1FTUA3mxESSxq3xMO23-9ttSeP1Kd0krounFM9d_DwqW28TfzpEGbreEEn0OLXcVDl_wjMfsMgb0fK6n9Cb56WCSLvYjSYR7aqYIm3Xm6KfXAoRbVoVwY1-shgI6A9_Nk7a383aZTw_BsMwPZBhzvdW0Y4oLfr1Oz2IzICBi_2qZeC0Ne0E7GmvHbh-NyaOFNItJxi0wPZhhPzwtgDc-FKf9mPLhUxl9JG21nVunCx_OdaWyc4ribV3k5O5WRTuGPNSH3c";
+        StringBuffer strBuf = new StringBuffer();
+        strBuf.append(tocken1);
+        strBuf.append(" ");
+        strBuf.append(tocken2);
+        restService.getService().getUser(strBuf.toString(),1, new Callback<Users>() {
             @Override
             public void success(Users users, Response response) {
                 userName = users.UserName;compaId = users.CompanyId;urlImage = users.UserPhoto;
@@ -97,13 +92,11 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Apii",urlImage);
                 new DownloadImageTask((ImageView) hView.findViewById(R.id.UserPho))
                         .execute(urlImage);
-                //tv2.setImageResource();
                 tv.setText(""+userName);
                 tv1.setText("Printum");
             }
             @Override
             public void failure(RetrofitError error) {
-                //Toast.makeText(null, error.getMessage().toString(), Toast.LENGTH_LONG).show();
             }});
 
         setupViewPager();
@@ -129,32 +122,23 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_activity) {
-            // Handle the camera action
             callToSnackBar("Descuentos");
-
         } else if (id == R.id.nav_matches) {
             callToSnackBar("Productos");
         } else if (id == R.id.nav_quick_match) {
@@ -175,11 +159,9 @@ public class MainActivity extends AppCompatActivity
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
-
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
-
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
@@ -192,7 +174,6 @@ public class MainActivity extends AppCompatActivity
             }
             return mIcon11;
         }
-
         protected void onPostExecute(Bitmap result) {
             bmImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             bmImage.setMinimumWidth(50);

@@ -24,10 +24,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NearbyFragment extends Fragment {
     private String LOG_TAG = SearchFragment.class.getSimpleName();
     ArrayList<DataModel> dataModelArrayList = new ArrayList<>();
@@ -35,25 +31,16 @@ public class NearbyFragment extends Fragment {
 
     @Bind(R.id.recyclerViewMovie)
     RecyclerView mSearchRecyclerView;
-
     public NearbyFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         JsonParser();
-
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
-
-        // Setting the Grid Layout
         mSearchRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-        // Setting the Adapter
         mSearchAdapter = new SearchAdapter(getActivity(), dataModelArrayList);
         mSearchRecyclerView.setAdapter(mSearchAdapter);
         return view;
@@ -120,8 +107,6 @@ public class NearbyFragment extends Fragment {
             e.printStackTrace();
         }
         Log.d(LOG_TAG, "dataModelArrayList jsonparser" + dataModelArrayList);
-//      EventBus.getDefault().postSticky(mMovieDataArrayList);
-
     }
 
 }

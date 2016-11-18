@@ -11,9 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by COEQ-IT on 01/11/2016.
+ * Created by JoyDa,inc on 01/11/2016.
  */
-
 public class Download extends AsyncTask<String, Integer, File> {
     File outputFile;
     protected File doInBackground(String... url1) {

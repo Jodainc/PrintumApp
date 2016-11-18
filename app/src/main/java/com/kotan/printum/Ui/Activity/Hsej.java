@@ -100,6 +100,5 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
     @Override
     public void onBackPressed()
     {
-        // Your Code Here. Leave empty if you want nothing to happen on back press.
     }
 }

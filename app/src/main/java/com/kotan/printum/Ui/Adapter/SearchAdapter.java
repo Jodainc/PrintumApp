@@ -28,52 +28,43 @@ import de.greenrobot.event.EventBus;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolderData> {
     public LayoutInflater layoutInflater;
     public Context mContext;
-    public ArrayList<DataModel> mCupidData;
-
-    public SearchAdapter(Context mContext, ArrayList<DataModel> mCupidData) {
+    public ArrayList<DataModel> PrintumData;
+    public SearchAdapter(Context mContext, ArrayList<DataModel> printumData) {
         layoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
-        this.mCupidData = mCupidData;
+        this.PrintumData = printumData;
     }
-
     @Override
     public ViewHolderData onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.single_search_row, parent, false);
         ViewHolderData viewHolderData = new ViewHolderData(view);
         return viewHolderData;
     }
-
     @Override
     public void onBindViewHolder(final ViewHolderData holder, final int position) {
         Glide.with(mContext)
-                .load(mCupidData.get(position).getPhoto_medium())
+                .load(PrintumData.get(position).getPhoto_medium())
                 .override(120, 120)
                 .centerCrop()
                 .crossFade(30)
                 .placeholder(R.drawable.test_profile)
                 .error(R.drawable.test_profile)
                 .into(holder.mImageView);
-
-        holder.mUserName.setText(mCupidData.get(position).getUser_name());
-
-        String age = String.valueOf(mCupidData.get(position).getAge());
-        String city = mCupidData.get(position).getLocation().getmCityName();
-        String stateCode = mCupidData.get(position).getLocation().getmStateCode();
+        holder.mUserName.setText(PrintumData.get(position).getUser_name());
+        String age = String.valueOf(PrintumData.get(position).getAge());
+        String city = PrintumData.get(position).getLocation().getmCityName();
+        String stateCode = PrintumData.get(position).getLocation().getmStateCode();
         holder.mLocation.setText(age + "-" + city + "," + stateCode);
-
-        String match = Integer.parseInt(mCupidData.get(position).getMatch()) / 100 + "%";
+        String match = Integer.parseInt(PrintumData.get(position).getMatch()) / 100 + "%";
         holder.mMatch.setText(match);
-
         holder.mMatchText.setText("Match");
-
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, UserDetail.class);
 
-                DataModel mDataModel = mCupidData.get(position);
+                DataModel mDataModel = PrintumData.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("Printum_detail_detail", mDataModel);
 
@@ -91,10 +82,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             }
         });
     }
-
     @Override
     public int getItemCount() {
-        return mCupidData.size();
+        return PrintumData.size();
     }
 
     public class ViewHolderData extends RecyclerView.ViewHolder {
@@ -114,8 +104,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         @Bind(R.id.MatchText)
         TextView mMatchText;
-
-
         public ViewHolderData(View itemView) {
             super(itemView);
             mView = itemView;
