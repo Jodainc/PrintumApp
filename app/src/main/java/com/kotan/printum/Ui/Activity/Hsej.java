@@ -92,7 +92,6 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
             boolean reachable = (val == 0);
             return reachable;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;

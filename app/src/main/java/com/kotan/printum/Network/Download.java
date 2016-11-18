@@ -1,15 +1,12 @@
 package com.kotan.printum.Network;
-
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 /**
  * Created by JoyDa,inc on 01/11/2016.
  */
