@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        final View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
-        final TextView tv = (TextView)hView.findViewById(R.id.TittleCompa);
-        final TextView tv1 = (TextView)hView.findViewById(R.id.TittleEmail);
+        final View hView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        final TextView tv = (TextView) hView.findViewById(R.id.TittleCompa);
+        final TextView tv1 = (TextView) hView.findViewById(R.id.TittleEmail);
         String tocken1 = "Bearer";
-        String tocken2 ="tJB7MdVToVLYwKjrPheC4sdxI-qzqNsLXKq3TuPX04yXXmangUqMbFres6rDYtlliFwrbNCo1mzBz2X3DBUa9IdoQvPrwnem5SFfMFVXLQYk9F2jkAm-RdtFHFQCwgNcWigaOZ-cqe1g_n29B0BV5caQrO2GDn_fhkPr-sWhx40ixaqCscA-5xmLn9IQDHBJ4NFeVy6vtS-WFS8eV1yVAwCmRCaPsfR3sFq7XWF2FQvzJ5AOJaYHjm-JuxCvihSOmB_0-SzbbMZqMeTrL6AEv3EySpAEwZk3zh1pD1FTUA3mxESSxq3xMO23-9ttSeP1Kd0krounFM9d_DwqW28TfzpEGbreEEn0OLXcVDl_wjMfsMgb0fK6n9Cb56WCSLvYjSYR7aqYIm3Xm6KfXAoRbVoVwY1-shgI6A9_Nk7a383aZTw_BsMwPZBhzvdW0Y4oLfr1Oz2IzICBi_2qZeC0Ne0E7GmvHbh-NyaOFNItJxi0wPZhhPzwtgDc-FKf9mPLhUxl9JG21nVunCx_OdaWyc4ribV3k5O5WRTuGPNSH3c";
+        String tocken2 ="HwlTHUt-Fn3Em_rXgf6HCgX19ItiQioOWAUcIkEILraHi6O5bDHD57siFhPVWv7ofD_UzmA5pvF4Rwn6WKOV1gDSwSB5ERG-d5D6gty2WG1dT7J7t4h2IzJ4m5a6V_6Q7QnHmJbqzjoKSrTgS4UR0ddTv5xrxpQOxAlSPlT_CnDdTFo-4w1pPfTF7ubLe_HRowCbHsMYJ5hRwI-9PjYKk6jGTo-HaMJkMB8SK7zV_6rJG6pe4Sc-2XXWLgucxO5WdMZt7uQnagP1fmtsgYT3oqcmf4AJoq4BgzrAa8YQa0Muh_9x7uz8JJ1iz5SpPhK2pgiGvEzXbYiaaS18aO08Ds1lbOAdFbAGjVRcpsbfpH5fSm0lyd07037NR0vvulZ9ALoAuGT1Wo5EPjeFIsBoiRkffLr268_uH2IdJWslwZIZ7ZVr1S_4lJujMH0TdmIquvHTcbEmO70S4s8LxKvhfFZQ2j4nmn0Z7ZCmvC2p1oc8R5b-Bnmov133i3Hwu-P8zBxGTlWmwPylTt6N6iEK6NRcv5RCW4X_oe5ufMYyjZ8";
         StringBuffer strBuf = new StringBuffer();
         strBuf.append(tocken1);
         strBuf.append(" ");
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                 urlImage = "http://192.168.0.98:8080"+urlImage;
                 Log.d("Apii",urlImage);
                 new DownloadImageTask((ImageView) hView.findViewById(R.id.UserPho))
-                        .execute(urlImage);
+                   .execute(urlImage);
                 tv.setText(""+userName);
                 tv1.setText("Printum");
             }
