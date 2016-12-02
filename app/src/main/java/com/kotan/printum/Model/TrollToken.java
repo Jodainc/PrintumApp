@@ -1,17 +1,20 @@
 package com.kotan.printum.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Kotan@JoyDainc on 21/11/2016.
  */
 
-public class TrollToken {
-    private int mID;
+public class TrollToken implements Serializable {
+    private long mID;
     private String Username;
     private String Password;
-    private int PasswordType;
+    private String PasswordType;
     private String TrollTok;
     private int MImport;
-    public TrollToken(int id, String username, String password,int passwordType, String trollTok,int mimport ){
+    public TrollToken(){}
+    public TrollToken(long id, String username, String password,String passwordType, String trollTok,int mimport ){
     mID = id;
      Username= username;
         Password =password;
@@ -19,11 +22,11 @@ public class TrollToken {
                 TrollTok = trollTok;
                     MImport= mimport;
     }
-    public int getmID() {
+    public long getmID() {
         return mID;
     }
 
-    public void setmID(int mID) {
+    public void setmID(long mID) {
         this.mID = mID;
     }
 
@@ -43,11 +46,11 @@ public class TrollToken {
         Password = password;
     }
 
-    public int getPasswordType() {
+    public String getPasswordType() {
         return PasswordType;
     }
 
-    public void setPasswordType(int passwordType) {
+    public void setPasswordType(String passwordType) {
         PasswordType = passwordType;
     }
 

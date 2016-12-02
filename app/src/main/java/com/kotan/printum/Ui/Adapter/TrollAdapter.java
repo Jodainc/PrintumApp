@@ -1,6 +1,4 @@
 package com.kotan.printum.Ui.Adapter;
-
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -85,7 +83,7 @@ public class TrollAdapter {
         return new TrollToken(cursor.getInt(INDEX_ID),
                 cursor.getString(INDEX_USERNAME),
                 cursor.getString(INDEX_PASSWORK),
-                cursor.getInt(INDEX_PASSWORKTYPE),
+                cursor.getString(INDEX_PASSWORKTYPE),
                 cursor.getString(INDEX_TROLLTOK),
                 cursor.getInt(INDEX_MIMPORT));
     }

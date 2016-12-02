@@ -40,6 +40,9 @@ import com.kotan.printum.Model.TrollToken;
 import com.kotan.printum.Network.RestService;
 import com.kotan.printum.Network.RestserviceTroll;
 import com.kotan.printum.R;
+import com.kotan.printum.Ui.Dao.DaoTroller;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +53,9 @@ import retrofit.client.Response;
 import static android.Manifest.permission.READ_CONTACTS;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+    public static final String TAG = "LoginActivity";
     private RestserviceTroll restService;
+    private DaoTroller daoTroller;
     private static final int REQUEST_READ_CONTACTS = 0;
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -82,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        daoTroller = new DaoTroller(this);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -411,8 +416,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             restService.getApiTroller().addKento(strBuf.toString(), new Callback<Kento>() {
                 @Override
                 public void success(Kento kento, Response response) {
-                   Log.w("kotan", response.getUrl());
-                    Log.w("kotan", kento.userName);
+                        TrollToken CreatetrollToken = daoTroller.createCompany(kento.userName,mPassword,kento.token_type,1,kento.access_token);
+                        Log.d(TAG, "added company : "+ CreatetrollToken.getUsername());
+                        Intent intent = new Intent();
+                        intent.putExtra(ListTokenActivity.EXTRA_ADDED_TROLLER, CreatetrollToken);
+                        setResult(RESULT_OK, intent);
+                        finish();
 
                 }
               @Override
@@ -422,7 +431,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             });
             if (success) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ListTokenActivity.class);
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -436,6 +445,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        daoTroller.close();
+    }
 }
 

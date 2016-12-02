@@ -29,6 +29,14 @@
             android:label="@string/title_activity_user_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".Ui.Activity.ListTokenActivity"
+            android:label="@string/title_activity_user_detail"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".Ui.Activity.ListUserActivity"
+            android:label="@string/title_activity_user_detail"
+            android:theme="@style/AppTheme"></activity>
+        <activity
             android:name=".Ui.Activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
