@@ -16,7 +16,6 @@ package com.kotan.printum.Ui.Activity;
         import android.widget.ListView;
         import android.widget.TextView;
         import android.widget.Toast;
-
         import com.kotan.printum.Model.TrollToken;
         import com.kotan.printum.Model.Users;
         import com.kotan.printum.R;
@@ -24,7 +23,6 @@ package com.kotan.printum.Ui.Activity;
         import com.kotan.printum.Ui.Adapter.SpinnerTrollAdapter;
         import com.kotan.printum.Ui.Dao.DaoTroller;
         import com.kotan.printum.Ui.Dao.UserDao;
-
 /**
  * Created by Kotan@JoyDainc on 23/11/2016.
  */

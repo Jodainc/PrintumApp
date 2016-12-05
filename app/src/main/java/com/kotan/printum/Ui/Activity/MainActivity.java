@@ -1,4 +1,6 @@
 package com.kotan.printum.Ui.Activity;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -8,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.print.PrintHelper;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +28,8 @@ import com.kotan.printum.Model.Users;
 import com.kotan.printum.Network.RestService;
 import com.kotan.printum.R;
 import com.kotan.printum.Ui.Adapter.TabViewAdapter;
+import com.kotan.printum.Ui.Dao.DaoTroller;
+import com.kotan.printum.Ui.Dao.DbHelper;
 import com.kotan.printum.Ui.Fragments.BookMarkFragment;
 import com.kotan.printum.Ui.Fragments.NearbyFragment;
 import com.kotan.printum.Ui.Fragments.SearchFragment;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private String userName = " ";
     private String urlImage = " ";
     private int compaId = 0;
+    private DaoTroller dao1;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.viewpager)
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         restService = new RestService();
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+        dao1 = new DaoTroller(this);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +137,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.action_Log){
+         dao1.removeAll();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

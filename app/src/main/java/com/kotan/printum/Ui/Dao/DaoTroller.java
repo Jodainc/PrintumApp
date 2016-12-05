@@ -117,6 +117,15 @@ public class DaoTroller {
             trollToken.setMImport(cursor.getInt(4));
             return trollToken;
         }
+    public void removeAll()
+    {
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.delete(DbHelper.TABLE_TROLLER, null, null);
+        db.delete(DbHelper.TABLE_USER, null, null);
+        db.delete(DbHelper.TABLE_COMPANIES, null, null);
+    }
 
     }
 

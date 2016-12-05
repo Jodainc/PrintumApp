@@ -1,5 +1,4 @@
 package com.kotan.printum.Ui.Activity;
-
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,26 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import java.util.concurrent.ExecutionException;
-
 import com.joanzapata.pdfview.PDFView;
 import com.joanzapata.pdfview.listener.OnDrawListener;
 import com.joanzapata.pdfview.listener.OnPageChangeListener;
 import com.kotan.printum.Network.Download;
 import com.kotan.printum.R;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutionException;
-
 /**
- * Created by COEQ-IT on 11/11/2016.
+ * Created by Kotan@JoyDainc on 05/12/2016.
  */
-
-public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDrawListener{
+public class FichaTec extends AppCompatActivity implements OnPageChangeListener,OnDrawListener {
     Uri path;
     private PDFView pdfView;
     private EditText editText;
     private Button button;
-    String download_file_url = "http://192.168.0.98:8080/pRO_hsEG/PDF/";
+    String download_file_url = "http://192.168.0.98:8080/PRO1_Productos/PDF/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +36,7 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
                     download_file_url = download_file_url+a;
                     editText.setText(""+download_file_url);
                     ViewPDF();
-                    download_file_url = "http://192.168.0.98:8080/pRO_hsEG/PDF/";
+                    download_file_url = "http://192.168.0.98:8080/PRO1_Productos/PDF/";
                 }else{
                     editText.setText("No product");
                 }

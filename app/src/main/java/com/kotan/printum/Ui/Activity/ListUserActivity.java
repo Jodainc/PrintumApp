@@ -16,16 +16,13 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.kotan.printum.Model.Users;
 import com.kotan.printum.R;
 import com.kotan.printum.Ui.Adapter.ListUserAdapter;
 import com.kotan.printum.Ui.Dao.UserDao;
-
 /**
  * Created by Kotan@JoyDainc on 23/11/2016.
  */
-
 public class ListUserActivity extends Activity implements OnItemLongClickListener, OnItemClickListener, OnClickListener {
 
     public static final String TAG = "ListEmployeesActivity";
@@ -39,18 +36,12 @@ public class ListUserActivity extends Activity implements OnItemLongClickListene
     private ListUserAdapter mAdapter;
     private List<Users> mListEmployees;
     private UserDao mEmployeeDao;
-
     private long mCompanyId = -1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_users);
-
-        // initialize views
         initViews();
-
-        // get the company id from extras
         mEmployeeDao = new UserDao(this);
         Intent intent  = getIntent();
         if(intent != null) {
