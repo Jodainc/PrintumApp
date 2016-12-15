@@ -75,6 +75,7 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
                 }else{
                     editText.setText("No product");
                 }
+        /*
         try {
             if(!(isOnlineNet())){
                 pdfView.fromAsset("printum.pdf")
@@ -87,6 +88,7 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
 
             }else{
                 //
+                /*
                 pdfView.fromFile(new Download().execute(download_file_url).get())
                         .onDraw(this)
                         .enableDoubletap(true)
@@ -94,6 +96,7 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
                         .onPageChange(this)
                         .load();
                 download_file_url = "http://192.168.0.98:8080/PRO1_Productos/PDF/";
+
                 editText.setText("Productos");
             }
         } catch (InterruptedException e) {
@@ -101,6 +104,7 @@ public class BookMarkFragment extends Fragment implements OnPageChangeListener,O
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        */
             }
     public Boolean isOnlineNet() {
         try {

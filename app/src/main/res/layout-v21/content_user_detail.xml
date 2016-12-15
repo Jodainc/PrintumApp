@@ -48,16 +48,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/detail_fab_button"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_menu_gallery"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"/>
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -85,18 +75,6 @@
                     android:background="@color/colorAccent" />
 
                 <Button
-                    android:text="@string/CC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button7"
-                    android:textSize="10sp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:backgroundTint="@color/colorAccent"
-                    android:background="@color/colorAccent" />
-
-                <Button
                     android:text="@string/FC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,6 +87,18 @@
                     android:layout_toEndOf="@+id/button6"
                     android:layout_marginLeft="32dp"
                     android:layout_marginStart="32dp" />
+
+                <Button
+                    android:text="@string/CC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button7"
+                    android:textSize="10sp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:background="@color/colorAccent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -124,7 +114,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/user_info"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimary" />
 
                     <TextView
                         android:id="@+id/movie_description"
@@ -139,5 +130,16 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/detail_fab_button"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="bottom|right"
+        android:src="@drawable/ic_menu_gallery"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:layout_gravity="top|left" />
 
 </android.support.design.widget.CoordinatorLayout>

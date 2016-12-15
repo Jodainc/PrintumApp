@@ -13,6 +13,7 @@ public class CertiModel implements Parcelable {
     private static final String KEY_C8EPP = "c8epp";
     private static final String KEY_C8MASINFO = "c8mASiNFO";
     private static final String KEY_C8PROTECCION = "C8pROTECCION";
+    public long Id;
     String C8Codigo;
     String c8epp;
     String c8mASiNFO;
@@ -40,6 +41,13 @@ public class CertiModel implements Parcelable {
             return new CertiModel[size];
         }
     };
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
 
     public String getC8Codigo() {
         return C8Codigo;

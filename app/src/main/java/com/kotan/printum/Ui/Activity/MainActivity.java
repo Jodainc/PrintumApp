@@ -73,8 +73,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Envie su mensaje", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), Webview.class);
+                intent.putExtra("EXTRA_SESSION_ID", "http://www.printum-uv.com/contactenos");
+                startActivity(intent);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity
             TabViewAdapter mTabViewAdapter = new TabViewAdapter(getSupportFragmentManager());
             mTabViewAdapter.addFragment(mSearchFragment, "Descuentos");
             mTabViewAdapter.addFragment(mNearbyFragment, "Productos");
-            mTabViewAdapter.addFragment(mBookMarkFragment, "Certificados");
+            //mTabViewAdapter.addFragment(mBookMarkFragment, "Certificados");
             mViewPager.setAdapter(mTabViewAdapter);
         }
     }
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
     @Override
@@ -149,17 +152,26 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_activity) {
-            callToSnackBar("Descuentos");
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_matches) {
-            callToSnackBar("Productos");
+            Intent intent = new Intent(getApplicationContext(),Hsej.class);
+            startActivity(intent);
         } else if (id == R.id.nav_quick_match) {
-            callToSnackBar("Certificados");
+            Intent intent = new Intent(getApplicationContext(),Certica.class);
+            startActivity(intent);
         } else if (id == R.id.nav_messages) {
-            callToSnackBar("Hojas de seguridad");
+            Intent intent = new Intent(getApplicationContext(),FichaTec.class);
+            startActivity(intent);
         } else if (id == R.id.nav_visitors) {
-            callToSnackBar("EquipoPrintum");
+            Intent intent = new Intent(getApplicationContext(), Webview.class);
+            intent.putExtra("EXTRA_SESSION_ID", "http://www.printum-uv.com/");
+            startActivity(intent);
         } else if (id == R.id.nav_likes) {
-            callToSnackBar("Conocenos");
+            Intent intent = new Intent(getApplicationContext(), Webview.class);
+            intent.putExtra("EXTRA_SESSION_ID", "http://www.printum-uv.com/contactenos");
+            startActivity(intent);
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -185,6 +197,7 @@ public class MainActivity extends AppCompatActivity
             }
             return mIcon11;
         }
+
         protected void onPostExecute(Bitmap result) {
             bmImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             bmImage.setMinimumWidth(50);

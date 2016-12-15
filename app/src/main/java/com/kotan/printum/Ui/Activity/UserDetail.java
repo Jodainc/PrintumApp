@@ -1,5 +1,6 @@
 package com.kotan.printum.Ui.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,9 @@ import  com.kotan.printum.R;
 public class UserDetail extends AppCompatActivity {
     private DataModel dataModel;
     private String LOG_TAG = UserDetail.class.getSimpleName();
+    private Button cC;
+    private Button fC;
+    private Button hS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +51,60 @@ public class UserDetail extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            cC =  (Button)findViewById(R.id.button5);
+            cC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Certica.class);
+                    startActivity(intent);
+                }
+            });
+            fC = (Button) findViewById(R.id.button9);
+            fC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(),FichaTec.class);
+                    startActivity(intent);
+                }
+            });
 
-        Button cC =  (Button)findViewById(R.id.button5);
-        cC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CertiCa10.class);
-                startActivity(intent);
-            }
-        });
-        Button fC = (Button) findViewById(R.id.button9);
-        fC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+            hS =(Button) findViewById(R.id.button10);
+            hS.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Hsej.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            cC =  (Button)findViewById(R.id.button6);
+            cC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Certica.class);
+                    startActivity(intent);
+                }
+            });
+            fC = (Button) findViewById(R.id.button8);
+            fC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(),FichaTec.class);
+                    startActivity(intent);
+                }
+            });
 
-        Button hS =(Button) findViewById(R.id.button10);
-        hS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+            hS =(Button) findViewById(R.id.button7);
+            hS.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Hsej.class);
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
     public void onEventMainThread(OnItemClickEvent event) {
         dataModel = (DataModel) event.bundle.get("cupid_detail");
