@@ -103,10 +103,20 @@ public class DaoTroller {
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-
             TrollToken trollToken = cursorToTroll(cursor);
             return trollToken;
         }
+
+        public TrollToken getTrollerByName(String id) {
+        Cursor cursor = mDatabase.query(DbHelper.TABLE_TROLLER, mAllColumns,
+                DbHelper.COLUMN_TROLLER_USERNAME + " = ?",
+                new String[] { String.valueOf(id) }, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        TrollToken trollToken = cursorToTroll(cursor);
+        return trollToken;
+    }
         protected TrollToken cursorToTroll(Cursor cursor) {
             TrollToken trollToken = new TrollToken();
             trollToken.setmID(cursor.getLong(0));

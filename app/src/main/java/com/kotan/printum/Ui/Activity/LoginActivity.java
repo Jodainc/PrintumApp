@@ -75,10 +75,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
     private DaoTroller mCompanyDao;
     private List<TrollToken> mListCompanies;
@@ -408,6 +404,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             restService = new RestserviceTroll();
             mAuthTask = null;
+            boolean a = false;
             showProgress(false);
             Kento kento = new Kento();
             kento.userName = mEmail;
@@ -422,30 +419,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             strBuf.append("grant_type=");
             strBuf.append("password");
             Log.w("Usuario", strBuf.toString());
-            restService.getApiTroller().addKento(strBuf.toString(), new Callback<Kento>() {
-                @Override
-                public void success(Kento kento, Response response) {
+            if (success ) {
+                restService.getApiTroller().addKento(strBuf.toString(), new Callback<Kento>() {
+                    @Override
+                    public void success(Kento kento, Response response) {
                         TrollToken CreatetrollToken = daoTroller.createCompany(kento.userName,mPassword,kento.token_type,1,kento.access_token);
                         Log.d(TAG, "added company : "+ CreatetrollToken.getUsername());
                         Intent intent = new Intent();
                         intent.putExtra(ListTokenActivity.EXTRA_ADDED_TROLLER, CreatetrollToken);
                         setResult(RESULT_OK, intent);
                         finish();
+                        TrollToken CreatetrollToken1 = daoTroller.getTrollerByName(mEmail);
+                        Intent intent10;
+                        if ( CreatetrollToken1.getUsername().equals(mEmail)){
+                            intent10 = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent10);
+                        }else{
 
-                }
-              @Override
-                public void failure(RetrofitError error) {
-                    Log.w("kotan", error.toString());
-                }
+                            intent10 = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent10);
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
+                            mPasswordView.requestFocus();
+                        }
+                    }
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.w("kotan", error.toString());
+                    }
 
-            });
-            if (success) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                });
+
+                // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                // startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+
         }
 
         @Override
