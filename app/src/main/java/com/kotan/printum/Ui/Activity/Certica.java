@@ -98,6 +98,14 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
         }
         public void JsonParser(String value) {
             final String url = String.format("http://192.168.0.98:8080/api/Pro_Certificados/%s",value );
+            if(certiModelList != null && !certiModelList.isEmpty()) {
+                certiModelList.clear();
+                for (int i=0; i>certiModelList.size();i++   ){
+                    certiModelList.remove(i);
+                }
+                mAdapter = new CertiAdapter(this, certiModelList);
+                mListviewEmployees.setAdapter(mAdapter);
+            }
             RequestQueue requestQueue = VolleySingleton.getInstance().getRequestQueue();
             JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, url, new Response.Listener<JSONArray>() {
                 @Override
@@ -126,35 +134,37 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
         private void parseJSONresponse(JSONArray response) {
             try {
                 String jsonString = response.toString();
+                String C8Codigo="null";
+                String c8epp ="null";
+                String c8mASiNFO ="null";
+                String C8pROTECCION ="null";
+
                 Log.i(TAG, "Json" + jsonString);
                 JSONArray jsonArray = new JSONArray(URLDecoder.decode( jsonString, "UTF-8" ));
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    String C8Codigo = jsonObject.getString("C8Codigo");
-                    Log.i(TAG, "C8Codigo" + C8Codigo);
-                    String c8epp = jsonObject.getString("c8epp");
-                    Log.i(TAG, "C8Codigo" + c8epp);
-                    String c8mASiNFO = jsonObject.getString("c8mASiNFO");
-                    Log.i(TAG, "C8Codigo" + c8mASiNFO);
-                    String C8pROTECCION = jsonObject.getString("C8pROTECCION");
+                    if(!(jsonObject.getString("C8pROTECCION").equals("null"))){
+                        C8Codigo = jsonObject.getString("C8Codigo");
+                        c8epp = jsonObject.getString("c8epp");
+                        c8mASiNFO = jsonObject.getString("c8mASiNFO");
+                        C8pROTECCION = jsonObject.getString("C8pROTECCION");
+                        Log.i("Certi", C8pROTECCION);
+                    }
                     dataModel = new CertiModel(C8Codigo, c8epp, c8mASiNFO, C8pROTECCION);
-                    Log.i(TAG, "C8Codigo10" + dataModel.getC8Codigo());
-                    Log.i(TAG, "C8Codigo10" + dataModel.getC8pROTECCION());
-                    if(!(C8Codigo.isEmpty())){
+
+                    if(!(C8Codigo.isEmpty())&&!(C8pROTECCION.equals("null"))){
                         certiModelList.add(dataModel);
-                    }else{
-                        dataModel = new CertiModel("No articulo","No articulo","No articulo","No articulo");
-                        certiModelList.add(dataModel);
+                        if(certiModelList != null && !certiModelList.isEmpty()) {
+                            mAdapter = new CertiAdapter(this, certiModelList);
+                            mListviewEmployees.setAdapter(mAdapter);
+                        }
+                        else {
+                            mTxtEmptyListEmployees.setVisibility(View.VISIBLE);
+                            mListviewEmployees.setVisibility(View.GONE);
+                        }
                     }
 
-                    if(certiModelList != null && !certiModelList.isEmpty()) {
-                        mAdapter = new CertiAdapter(this, certiModelList);
-                        mListviewEmployees.setAdapter(mAdapter);
-                    }
-                    else {
-                        mTxtEmptyListEmployees.setVisibility(View.VISIBLE);
-                        mListviewEmployees.setVisibility(View.GONE);
-                    }
+
 
                 }
             } catch (JSONException e) {
@@ -193,7 +203,7 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
     private void showDeleteDialogConfirmation(final CertiModel certiModel) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        alertDialogBuilder.setTitle("Delete");
+        alertDialogBuilder.setTitle("Abrir Certificado");
         alertDialogBuilder
                 .setMessage("Desea abrir estes Certificado \""
                         + certiModel.getC8Codigo() + " "
