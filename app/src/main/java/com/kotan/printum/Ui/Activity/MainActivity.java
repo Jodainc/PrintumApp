@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kotan.printum.EventBus.MyApplication;
+import com.kotan.printum.Model.TrollToken;
 import com.kotan.printum.Model.Users;
 import com.kotan.printum.Network.RestService;
 import com.kotan.printum.R;
@@ -65,6 +69,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        //Log.d("Nameee",((MyApplication) this.getApplication()).getSomeVariable());
+
+
         setContentView(R.layout.activity_main);
         restService = new RestService();
         ButterKnife.bind(this);
@@ -87,13 +98,20 @@ public class MainActivity extends AppCompatActivity
         final View hView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         final TextView tv = (TextView) hView.findViewById(R.id.TittleCompa);
         final TextView tv1 = (TextView) hView.findViewById(R.id.TittleEmail);
-        String tocken1 = "Bearer";
-        String tocken2 ="HwlTHUt-Fn3Em_rXgf6HCgX19ItiQioOWAUcIkEILraHi6O5bDHD57siFhPVWv7ofD_UzmA5pvF4Rwn6WKOV1gDSwSB5ERG-d5D6gty2WG1dT7J7t4h2IzJ4m5a6V_6Q7QnHmJbqzjoKSrTgS4UR0ddTv5xrxpQOxAlSPlT_CnDdTFo-4w1pPfTF7ubLe_HRowCbHsMYJ5hRwI-9PjYKk6jGTo-HaMJkMB8SK7zV_6rJG6pe4Sc-2XXWLgucxO5WdMZt7uQnagP1fmtsgYT3oqcmf4AJoq4BgzrAa8YQa0Muh_9x7uz8JJ1iz5SpPhK2pgiGvEzXbYiaaS18aO08Ds1lbOAdFbAGjVRcpsbfpH5fSm0lyd07037NR0vvulZ9ALoAuGT1Wo5EPjeFIsBoiRkffLr268_uH2IdJWslwZIZ7ZVr1S_4lJujMH0TdmIquvHTcbEmO70S4s8LxKvhfFZQ2j4nmn0Z7ZCmvC2p1oc8R5b-Bnmov133i3Hwu-P8zBxGTlWmwPylTt6N6iEK6NRcv5RCW4X_oe5ufMYyjZ8";
+        Log.d("Apii", String.valueOf(dao1.getProfilesCount()));
+        TrollToken  a = dao1.getTrollerById(dao1.getProfilesCount());
+        String tocken1 = a.getPasswordType();
+        Log.d("tyype",tocken1);
+        String tocken2 = a.getTrollTok();
+        Log.d("tyype",tocken2);
         StringBuffer strBuf = new StringBuffer();
         strBuf.append(tocken1);
         strBuf.append(" ");
         strBuf.append(tocken2);
-        restService.getService().getUser(strBuf.toString(),1, new Callback<Users>() {
+        String naem= a.getUsername();
+        naem = naem.replace(".com","");
+
+        restService.getService().getUserse(naem, new Callback<Users>() {
             @Override
             public void success(Users users, Response response) {
                 userName = users.UserName;compaId = users.CompanyId;urlImage = users.UserPhoto;
@@ -101,12 +119,13 @@ public class MainActivity extends AppCompatActivity
                 urlImage = "http://192.168.0.98:8080"+urlImage;
                 Log.d("Apii",urlImage);
                 new DownloadImageTask((ImageView) hView.findViewById(R.id.UserPho))
-                   .execute(urlImage);
+                        .execute(urlImage);
                 tv.setText(""+userName);
                 tv1.setText("Printum");
             }
             @Override
             public void failure(RetrofitError error) {
+                Log.d("errorrrr",error.toString());
             }});
 
         setupViewPager();
@@ -115,7 +134,7 @@ public class MainActivity extends AppCompatActivity
     private void setupViewPager() {
         if (mViewPager != null) {
             TabViewAdapter mTabViewAdapter = new TabViewAdapter(getSupportFragmentManager());
-            mTabViewAdapter.addFragment(mSearchFragment, "Descuentos");
+            //mTabViewAdapter.addFragment(mSearchFragment, "Descuentos");
             mTabViewAdapter.addFragment(mNearbyFragment, "Productos");
             //mTabViewAdapter.addFragment(mBookMarkFragment, "Certificados");
             mViewPager.setAdapter(mTabViewAdapter);
@@ -141,7 +160,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_Log){
-         dao1.removeAll();
+
+            dao1.removeAll();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         }

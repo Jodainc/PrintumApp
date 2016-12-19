@@ -15,6 +15,8 @@ import retrofit.http.Path;
 public interface UsersService  {
     @GET("/Users")
     public void getUsers(@Header("Authorization") String troll,Callback<List<Users>> callback);
-    @GET("/Users/{id}")
-    public void getUser(@Header("Authorization") String troll, @Path("id")Integer id, Callback<Users> callback);
+    @GET("/Users/{name}")
+    public void getUser(@Header("Authorization") String troll, @Path("name")String name, Callback<Users> callback);
+    @GET("/Users/{name}")
+    public void getUserse( @Path("name")String name, Callback<Users> callback);
 }

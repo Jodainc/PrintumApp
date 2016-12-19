@@ -97,21 +97,25 @@ public class DaoTroller {
             return listCompanies;
         }
         public TrollToken getTrollerById(long id) {
-            Cursor cursor = mDatabase.query(DbHelper.TABLE_TROLLER, mAllColumns,
-                    DbHelper.COLUMN_COMPANY_ID + " = ?",
-                    new String[] { String.valueOf(id) }, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-            }
-            TrollToken trollToken = cursorToTroll(cursor);
-            return trollToken;
+        Cursor cursor = mDatabase.query(DbHelper.TABLE_TROLLER, mAllColumns,
+                DbHelper.COLUMN_COMPANY_ID + " = ?",
+                new String[] { String.valueOf(id) }, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            cursor.moveToFirst();
         }
+        TrollToken trollToken = cursorToTroll(cursor);
+        return trollToken;
+    }
+    public long getProfilesCount() {
+        Cursor dataCount = mDatabase.rawQuery("select Count(*)  from " + DbHelper.TABLE_TROLLER, null);
+        return dataCount.getCount();
+    }
 
         public TrollToken getTrollerByName(String id) {
         Cursor cursor = mDatabase.query(DbHelper.TABLE_TROLLER, mAllColumns,
                 DbHelper.COLUMN_TROLLER_USERNAME + " = ?",
                 new String[] { String.valueOf(id) }, null, null, null);
-        if (cursor != null) {
+        if (cursor != null && cursor.moveToFirst()) {
             cursor.moveToFirst();
         }
         TrollToken trollToken = cursorToTroll(cursor);
@@ -129,12 +133,10 @@ public class DaoTroller {
         }
     public void removeAll()
     {
-        // db.delete(String tableName, String whereClause, String[] whereArgs);
-        // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.TABLE_TROLLER, null, null);
-        db.delete(DbHelper.TABLE_USER, null, null);
-        db.delete(DbHelper.TABLE_COMPANIES, null, null);
+        Log.i("actualia","actual");
+        mDbHelper.onUpgrade(db,1,2);
+
     }
 
     }

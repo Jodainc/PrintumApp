@@ -4,6 +4,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.common.net.MediaType;
+import com.kotan.printum.EventBus.MyApplication;
 import com.kotan.printum.Model.Kento;
 import com.kotan.printum.Model.TrollToken;
 import com.kotan.printum.Network.RestService;
@@ -82,6 +84,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        // set
+
+// get
+        String s = ((MyApplication) this.getApplication()).getSomeVariable();
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mCompanyDao = new DaoTroller(this);
@@ -433,10 +443,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Intent intent10;
                         if ( CreatetrollToken1.getUsername().equals(mEmail)){
                             intent10 = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("EXTRA_SESSION_ID", mEmail);
+                            //((MyApplication) getApplication()).setSomeVariable(mEmail);
+
                             startActivity(intent10);
                         }else{
-
-                            intent10 = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent10 = new Intent(getApplicationContext(), Regiss.class);
                             startActivity(intent10);
                             mPasswordView.setError(getString(R.string.error_incorrect_password));
                             mPasswordView.requestFocus();
@@ -445,6 +457,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void failure(RetrofitError error) {
                         Log.w("kotan", error.toString());
+                        Intent  intent10 = new Intent(getApplicationContext(), Regiss.class);
+                        startActivity(intent10);
                     }
 
                 });
@@ -452,6 +466,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 // startActivity(intent);
             } else {
+                Intent intent10 = new Intent(getApplicationContext(), Regiss.class);
+                startActivity(intent10);
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
