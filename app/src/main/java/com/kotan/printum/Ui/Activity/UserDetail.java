@@ -51,7 +51,7 @@ public class UserDetail extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2 ) {
             cC =  (Button)findViewById(R.id.button5);
             cC.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,7 +77,36 @@ public class UserDetail extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        }else{
+        }else
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP ){
+            cC =  (Button)findViewById(R.id.button5);
+            cC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Certica.class);
+                    startActivity(intent);
+                }
+            });
+            fC = (Button) findViewById(R.id.button9);
+            fC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(),FichaTec.class);
+                    startActivity(intent);
+                }
+            });
+
+            hS =(Button) findViewById(R.id.button10);
+            hS.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Hsej.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        else
+        {
             cC =  (Button)findViewById(R.id.button6);
             cC.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,7 +136,7 @@ public class UserDetail extends AppCompatActivity {
 
     }
     public void onEventMainThread(OnItemClickEvent event) {
-        dataModel = (DataModel) event.bundle.get("cupid_detail");
+        //dataModel = (DataModel) event.bundle.get("cupid_detail");
     }
 
     @Override

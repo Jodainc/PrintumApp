@@ -27,7 +27,7 @@ public class FichaTec extends AppCompatActivity implements OnPageChangeListener,
     private EditText editText;
     private Button button;
     private Context context;
-    String download_file_url = "http://192.168.0.98:8080/PRO1_Productos/PDF/";
+    String download_file_url = "http://printumsaa.zapto.org:8080/PRO1_Productos/PDF/";
     final private int REQUEST_WRITE_STORAGE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class FichaTec extends AppCompatActivity implements OnPageChangeListener,
             public void onClick(View view) {
                 String a =  editText.getText().toString();
                 if(a!= null && !(a.equals("Producto"))){
-                    download_file_url = String.format("http://192.168.0.98:8080/PRO1_Productos/PDF/%s", a);
+                    download_file_url = String.format("http://printumsaa.zapto.org:8080/PRO1_Productos/PDF/%s", a);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
 
                         if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context,

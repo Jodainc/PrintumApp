@@ -23,7 +23,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class RestserviceTroll {
-        private static final String URL = "http://192.168.0.98:8080";
+        private static final String URL = "http://printumsaa.zapto.org:8080";
         private retrofit.RestAdapter restAdapterTrole;
         private TrollerTokenService apiTroller;
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();

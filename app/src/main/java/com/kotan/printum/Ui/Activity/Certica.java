@@ -21,11 +21,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.kotan.printum.Model.CertiModel;
 import com.kotan.printum.Model.DataModel;
+import com.kotan.printum.Model.TrollToken;
 import com.kotan.printum.Model.Users;
 import com.kotan.printum.Network.VolleySingleton;
 import com.kotan.printum.R;
 import com.kotan.printum.Ui.Adapter.CertiAdapter;
 import com.kotan.printum.Ui.Adapter.ListUserAdapter;
+import com.kotan.printum.Ui.Dao.DaoTroller;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +56,7 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
     private List<CertiModel> certiModelList;
     private CertiAdapter mAdapter;
     private String value;
+    private DaoTroller dao1;
         CertiModel dataModel;
         private String C8pROTECCION;
     public static final String TAG = "Certica";
@@ -62,6 +66,7 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
             setContentView(R.layout.activity_certica);
             certiModelList = new ArrayList<CertiModel>();
             initViews();
+            dao1 = new DaoTroller(this);
             getText = (TextView)findViewById(R.id.editText2);
             button  =(Button) findViewById(R.id.button2);
             button.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +102,7 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
             return false;
         }
         public void JsonParser(String value) {
-            final String url = String.format("http://192.168.0.98:8080/api/Pro_Certificados/%s",value );
+            final String url = String.format("http://printumsaa.zapto.org:8080/api/Pro_Certificados/%s",value );
             if(certiModelList != null && !certiModelList.isEmpty()) {
                 certiModelList.clear();
                 for (int i=0; i>certiModelList.size();i++   ){
@@ -123,7 +128,16 @@ public class Certica extends Activity implements OnItemLongClickListener, OnItem
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Authorization", "Bearer HwlTHUt-Fn3Em_rXgf6HCgX19ItiQioOWAUcIkEILraHi6O5bDHD57siFhPVWv7ofD_UzmA5pvF4Rwn6WKOV1gDSwSB5ERG-d5D6gty2WG1dT7J7t4h2IzJ4m5a6V_6Q7QnHmJbqzjoKSrTgS4UR0ddTv5xrxpQOxAlSPlT_CnDdTFo-4w1pPfTF7ubLe_HRowCbHsMYJ5hRwI-9PjYKk6jGTo-HaMJkMB8SK7zV_6rJG6pe4Sc-2XXWLgucxO5WdMZt7uQnagP1fmtsgYT3oqcmf4AJoq4BgzrAa8YQa0Muh_9x7uz8JJ1iz5SpPhK2pgiGvEzXbYiaaS18aO08Ds1lbOAdFbAGjVRcpsbfpH5fSm0lyd07037NR0vvulZ9ALoAuGT1Wo5EPjeFIsBoiRkffLr268_uH2IdJWslwZIZ7ZVr1S_4lJujMH0TdmIquvHTcbEmO70S4s8LxKvhfFZQ2j4nmn0Z7ZCmvC2p1oc8R5b-Bnmov133i3Hwu-P8zBxGTlWmwPylTt6N6iEK6NRcv5RCW4X_oe5ufMYyjZ8");
+                    TrollToken a = dao1.getTrollerById(dao1.getProfilesCount());
+                    String tocken1 = a.getPasswordType();
+                    Log.d("tyype",tocken1);
+                    String tocken2 = a.getTrollTok();
+                    Log.d("tyype",tocken2);
+                    StringBuffer strBuf = new StringBuffer();
+                    strBuf.append(tocken1);
+                    strBuf.append(" ");
+                    strBuf.append(tocken2);
+                    headers.put("Authorization", strBuf.toString());
                     return headers;
                 }
             };

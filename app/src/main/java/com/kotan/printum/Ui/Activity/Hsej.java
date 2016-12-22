@@ -36,7 +36,7 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
     private Button button;
     private Context context;
     final private int REQUEST_WRITE_STORAGE = 100;
-    String download_file_url = "http://192.168.0.98:8080/pRO_hsEG/PDF/";
+    String download_file_url = "http://printumsaa.zapto.org:8080/pRO_hsEG/PDF/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class Hsej extends AppCompatActivity implements OnPageChangeListener,OnDr
             public void onClick(View view) {
                 String a =  editText.getText().toString();
                 if(a!= null && !(a.equals("Producto"))){
-                    download_file_url = String.format("http://192.168.0.98:8080/pRO_hsEG/PDF/%s", a);
+                    download_file_url = String.format("http://printumsaa.zapto.org:8080/pRO_hsEG/PDF/%s", a);
                     int permissionCheck = ContextCompat.checkSelfPermission(context,
                             Manifest.permission.WRITE_CALENDAR);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {

@@ -5,7 +5,7 @@ package com.kotan.printum.Network;
  */
 
 public class RestService {
-    private static final String URL = "http://192.168.0.98:8080/Api";
+    private static final String URL = "http://printumsaa.zapto.org:8080/Api";
     private retrofit.RestAdapter restAdapterUser;
     private UsersService apiService;
     public RestService()
