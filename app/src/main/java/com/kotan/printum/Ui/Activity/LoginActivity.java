@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 // get
         String s = ((MyApplication) this.getApplication()).getSomeVariable();
         setContentView(R.layout.activity_login);
+        daoTroller = new DaoTroller(this);
         // Set up the login form.
         mCompanyDao = new DaoTroller(this);
         mListCompanies = mCompanyDao.getAllCompanies();
@@ -483,7 +484,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        daoTroller.close();
+            daoTroller.close();
     }
 }
 
